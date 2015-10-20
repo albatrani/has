@@ -1,6 +1,5 @@
 
 public class Resident {
-// get and set
 	private String name;
 	private String password;
 	public Resident(String name, String password) {
