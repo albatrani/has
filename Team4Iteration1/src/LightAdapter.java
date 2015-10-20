@@ -1,16 +1,16 @@
 
 public class LightAdapter {
-	
+	private LightStatus lightStatus;
+
 	public void on(){
-		
-	}
-	
-	public void off(){
-		
-	}
-	
-	public void status(){
-		
+		lightStatus = LightStatus.On;
 	}
 
+	public void off(){
+		lightStatus = LightStatus.Off;
+	}
+
+	public LightStatus getLightStatus(){
+		return lightStatus;
+	}
 }
