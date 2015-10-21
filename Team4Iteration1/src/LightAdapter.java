@@ -7,6 +7,9 @@ public class LightAdapter {
 
     public LightAdapter() {
         lightStatus = getLightStatus();
+        if (lightStatus == null) {
+            lightStatus = LightStatus.OFF;
+        }
     }
 
     /*
