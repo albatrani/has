@@ -6,11 +6,12 @@ public class HouseSection {
 
     private String name;
     private boolean inHouse = true;
-    private LightAdapter lightAdapter = new LightAdapter();
+    private LightAdapter lightAdapter;
 
     public HouseSection(String name, boolean inHouse) {
         this.name = name;
         this.inHouse = inHouse;
+        lightAdapter = new LightAdapter();
     }
 
     /*
@@ -42,6 +43,10 @@ public class HouseSection {
 
     public boolean isInHouse() {
         return inHouse;
+    }
+
+    public LightAdapter getLightAdapter() {
+        return this.lightAdapter;
     }
 
 }
