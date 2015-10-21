@@ -10,7 +10,8 @@ public class LightAdapterTests {
         LightAdapter lightAdapter = new LightAdapter();
 
         // check that object is initialized to off
-        assertEquals(lightAdapter.getLightStatus(), LightStatus.OFF);
+        assertEquals("LightAdapter constructor failed", LightStatus.OFF,
+                lightAdapter.getLightStatus());
     }
 
     @Test
@@ -22,7 +23,8 @@ public class LightAdapterTests {
         lightAdapter.on();
 
         // Assert status to be on
-        assertEquals(lightAdapter.getLightStatus(), LightStatus.ON);
+        assertEquals("LightAdapter On function failed", LightStatus.ON,
+                lightAdapter.getLightStatus());
     }
 
     @Test
@@ -34,6 +36,7 @@ public class LightAdapterTests {
         lightAdapter.off();
 
         // assert status to be off
-        assertEquals(lightAdapter.getLightStatus(), LightStatus.OFF);
+        assertEquals("LightAdapter Off function failed", LightStatus.OFF,
+                lightAdapter.getLightStatus());
     }
 }
