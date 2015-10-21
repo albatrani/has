@@ -3,75 +3,70 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*
+ * House is the main Controller class in the system which maintains the 
+ * list of house sections.
+ */
 public class House {
-	
-	private String address;
-	private Resident resident;
-	private List<TransactionLog> trasactions;
-	private Map<String, HouseSection> sections;
-	
-	public House(Resident resident, String address) {
-		// TODO Auto-generated constructor stub
-		
-		this.resident = resident;
-		this.address = address;
-		trasactions = new ArrayList<>();
-		sections = new HashMap<>();
-		
-	}
-	
-	public String getAddress() {
-		return address;
-	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	
-	
+    private String address;
+    private Resident resident;
+    private List<TransactionLog> trasactions;
+    private Map<String, HouseSection> sections;
 
-	public Resident getResident() {
-		return resident;
-	}
+    public House(Resident resident, String address) {
+        this.resident = resident;
+        this.address = address;
+        trasactions = new ArrayList<>();
+        sections = new HashMap<>();
 
-	public void setResident(Resident resident) {
-		this.resident = resident;
-	}
+    }
 
-	public List<TransactionLog> getTrasactions() {
-		return trasactions;
-	}
+    /*
+     * gets a house section by name
+     */
+    public HouseSection getHouseSection(String name) {
+        return sections.get(name);
+    }
 
-	public void setTrasactions(List<TransactionLog> trasactions) {
-		this.trasactions = trasactions;
-	}
+    /*
+     * makes the control lighting handler object and pass its reference back to UI
+     */
+    public ControlLightingHandler makeNewControlLighting() {
+        return new ControlLightingHandler(this);
+    }
 
-	public Map<String, HouseSection> getSections() {
-		return sections;
-	}
+    /*
+     * Adds a log for the completed lighting control transaction
+     */
+    public void logTransaction(LightingControlTransaction lct, TransactionStatus status) {
+        trasactions.add(new TransactionLog(lct, status));
+    }
 
-	public void setSections(Map<String, HouseSection> sections) {
-		this.sections = sections;
-	}
+    /*
+     * Utility method to populate the house sections list
+     */
+    public boolean addHouseSection(HouseSection hs) {
+        if (sections.containsKey(hs.getName())) {
+            return false;
+        }
+        sections.put(hs.getName(), hs);
+        return true;
+    }
 
-	public HouseSection getHouseSection(String name) {
-		// TODO Auto-generated method stub
-		
-		return sections.get(name);
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public void logTransaction(LightingControlTransaction lct, TransactionStatus status) {
-		// TODO Auto-generated method stub
-		
-		trasactions.add(new TransactionLog(lct, status));
-	}
-	
-	public void addHouseSection(HouseSection hs){
-		
-		if(!sections.containsKey(hs.getName())){
-			sections.put(hs.getName(), hs);
-		}
-			
-	}
+    public Resident getResident() {
+        return resident;
+    }
 
+    public List<TransactionLog> getTrasactions() {
+        return trasactions;
+    }
+
+    public Map<String, HouseSection> getSections() {
+        return sections;
+    }
 }

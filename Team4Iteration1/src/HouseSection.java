@@ -1,40 +1,47 @@
-
+/*
+ * HouseSection models one part of the house identified by name such as:
+ * Master Bedroom, Living room, Door Way, ...etc.
+ */
 public class HouseSection {
-	
-	private String name;
-	private boolean inHouse = true;
-	private LightAdapter lightAdapter = new LightAdapter();
-	
-	public void setLightingStatus(LightStatus action){
-		
-		switch(action){
-		case On:
-			lightAdapter.on();
-		case Off:
-			lightAdapter.off();
-		}
-	}
 
-	public LightStatus getLightingStatus() {
-		
-		return lightAdapter.getLightStatus();
-	}
+    private String name;
+    private boolean inHouse = true;
+    private LightAdapter lightAdapter = new LightAdapter();
 
-	public String getName() {
-		return name;
-	}
+    public HouseSection(String name, boolean inHouse) {
+        this.name = name;
+        this.inHouse = inHouse;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /*
+     * Updates lighting status (On/Off) for this house section. Communication is carried
+     * via the light adapter object
+     */
+    public void setLightingStatus(LightStatus action) {
+        switch (action) {
+        case ON:
+            lightAdapter.on();
+            break;
+        case OFF:
+            lightAdapter.off();
+            break;
+        }
+        System.out.printf("%s light is %s%n", name, lightAdapter.getLightStatus());
+    }
 
-	public boolean isInHouse() {
-		return inHouse;
-	}
+    /*
+     * Gets current lighting status for the house section
+     */
+    public LightStatus getLightingStatus() {
+        return lightAdapter.getLightStatus();
+    }
 
-	public void setInHouse(boolean inHouse) {
-		this.inHouse = inHouse;
-	}
-	
+    public String getName() {
+        return name;
+    }
+
+    public boolean isInHouse() {
+        return inHouse;
+    }
 
 }
