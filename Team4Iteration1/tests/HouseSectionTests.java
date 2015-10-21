@@ -32,12 +32,11 @@ public class HouseSectionTests {
         masterBedRoom.setLightingStatus(LightStatus.ON);
         backYard.setLightingStatus(LightStatus.ON);
         masterBedRoom.setLightingStatus(LightStatus.OFF);
-        backYard.setLightingStatus(LightStatus.OFF);
 
         // Assert
         assertEquals("HouseSection setLightingStatus function failed", LightStatus.OFF,
                 masterBedRoom.getLightingStatus());
-        assertEquals("HouseSection setLightingStatus function failed", LightStatus.OFF,
+        assertEquals("HouseSection setLightingStatus function failed", LightStatus.ON,
                 backYard.getLightingStatus());
     }
 }
