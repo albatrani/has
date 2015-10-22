@@ -1,43 +1,103 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ControlLightingHandlerTests {
-	
-	private ControlLightingHandler handler;
 
-	@Before
-	public void setUp() throws Exception {
-		
-		handler = new ControlLightingHandler();
-	}
+    private ControlLightingHandler handler;
+    private House house;
 
-	@After
-	public void tearDown() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+        house = TestingUtilities.getSampleHouse();
+        handler = house.makeNewControlLighting();
+    }
 
-	@Test
-	public void testControlLightingHandler() {
-		
-		
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testControlLightingHandler() {
+        assertNotNull(handler.getHouse());
+        assertNotNull(handler.getLct());
+    }
 
-	@Test
-	public void testSelectHousesection() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testSelectHousesectionValidName() {
+        // Act
+        String expected = "Master Bedroom";
+        HouseSection actual = handler.selectHousesection(expected);
 
-	@Test
-	public void testTurnOnOffLighting() {
-		fail("Not yet implemented");
-	}
+        // Assert
+        assertNotNull(actual);
+        assertEquals(actual.getName(), expected);
+    }
 
-	@Test
-	public void testEndControlLighting() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testSelectHousesectionInValidName() {
+        // Act
+        String expected = "Swimming Pool"; // does not exist
+        HouseSection actual = handler.selectHousesection(expected);
+
+        // Assert
+        assertNull(actual);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSelectHousesectionThrowsException() {
+        // Act
+        handler.selectHousesection(null);
+    }
+
+    @Test
+    public void testTurnOnOffLightingSuccessfulAddition() {
+        // Act
+        HouseSection masterBedroom = house.getHouseSection("Master Bedroom");
+        handler.turnOnOffLighting(masterBedroom, LightStatus.ON);
+
+        // Assert
+        assertEquals(1, handler.getLct().getLcas().size());
+    }
+
+    @Test
+    public void testTurnOnOffLightingDuplicatesNotAllowed() {
+        // Act
+        HouseSection masterBedroom = house.getHouseSection("Master Bedroom");
+        boolean first = handler.turnOnOffLighting(masterBedroom, LightStatus.ON);
+        boolean second = handler.turnOnOffLighting(masterBedroom, LightStatus.ON);
+
+        // Assert
+        assertTrue(first);
+        assertFalse(second);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testTurnOnOffLightingNullHouseSectionNotAllowed()
+            throws IllegalArgumentException {
+        // Act
+        handler.turnOnOffLighting(null, LightStatus.ON);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testTurnOnOffLightingNullActionNotAllowed() {
+        // Act
+        handler.turnOnOffLighting(house.getHouseSection("Master Bedroom"), null);
+    }
+
+    @Test
+    public void testEndControlLighting() {
+        // Act
+        int noOfTransactionLogBefore = house.getTrasactions().size();
+        TestingUtilities.addUserLightControlSelections(handler);
+        TransactionStatus status = handler.endControlLighting();
+        int noOfTransactionLogAfter = house.getTrasactions().size();
+
+        // Assert
+        assertEquals(TransactionStatus.SUCCESSFUL, status);
+        assertEquals(0, noOfTransactionLogBefore);
+        assertEquals(1, noOfTransactionLogAfter);
+    }
 
 }

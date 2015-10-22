@@ -56,4 +56,12 @@ public class ControlLightingHandler {
         house.logTransaction(lct, status);
         return status;
     }
+
+    public House getHouse() {
+        return this.house;
+    }
+
+    public LightingControlTransaction getLct() {
+        return this.lct;
+    }
 }
