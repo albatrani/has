@@ -27,7 +27,8 @@ public class HouseSection {
             lightAdapter.off();
             break;
         }
-        System.out.printf("%s light is %s%n", name, lightAdapter.getLightStatus());
+        System.out.printf("%s light is switched %s%n", name,
+                lightAdapter.getLightStatus());
     }
 
     /*
@@ -49,4 +50,9 @@ public class HouseSection {
         return this.lightAdapter;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Section: %s, Current Light Status: %s", name,
+                getLightingStatus());
+    }
 }

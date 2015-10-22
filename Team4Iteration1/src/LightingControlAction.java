@@ -48,4 +48,10 @@ public class LightingControlAction {
     public int hashCode() {
         return section.getName().hashCode();
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s, Action required: %s", section.toString(),
+                action.toString());
+    }
 }

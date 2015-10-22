@@ -92,10 +92,10 @@ public class ControlLightingHandlerTests {
     }
 
     @Test
-    public void testEndControlLighting() {
+    public void testEndControlLightingAllSections() {
         // Act
         int noOfTransactionLogBefore = house.getTrasactions().size();
-        TestingUtilities.addUserLightControlSelections(handler);
+        TestingUtilities.addUserLightControlSelections(house, handler, LightStatus.ON);
         TransactionStatus status = handler.endControlLighting();
         int noOfTransactionLogAfter = house.getTrasactions().size();
 
@@ -103,6 +103,17 @@ public class ControlLightingHandlerTests {
         assertEquals(TransactionStatus.SUCCESSFUL, status);
         assertEquals(0, noOfTransactionLogBefore);
         assertEquals(1, noOfTransactionLogAfter);
+    }
+
+    @Test
+    public void testEndControlLightingFewSections() {
+        // Act
+        TestingUtilities.addRandomUserLightControlSelections(house, handler,
+                LightStatus.ON, 5);
+        TransactionStatus status = handler.endControlLighting();
+
+        // Assert
+        assertEquals(TransactionStatus.SUCCESSFUL, status);
     }
 
 }

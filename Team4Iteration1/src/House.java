@@ -69,4 +69,16 @@ public class House {
     public Map<String, HouseSection> getSections() {
         return sections;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format(
+                "\"%s\" house located on \"%s\" has the following sections:%n",
+                resident.getName(), address));
+        for (HouseSection hs : sections.values()) {
+            builder.append(String.format("   %s%n", hs.toString()));
+        }
+        return builder.toString();
+    }
 }

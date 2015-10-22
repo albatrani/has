@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class TestingUtilities {
@@ -15,7 +16,8 @@ public class TestingUtilities {
 
     public static House getSampleHouse() {
         House house =
-                new House(new Resident("Team 4", "password"), "Cypress Spring Apartments");
+                new House(new Resident("Team 4", "password"),
+                        "115 Turpial Way, Melbourne, FL 32901");
         List<HouseSection> sections = getHouseSections();
         for (HouseSection hs : sections) {
             house.addHouseSection(hs);
@@ -34,32 +36,32 @@ public class TestingUtilities {
         return list;
     }
 
-    public static void addUserLightControlSelections(ControlLightingHandler handler) {
-        List<HouseSection> sections = getHouseSections();
-        for (HouseSection hs : sections) {
-            handler.turnOnOffLighting(hs, LightStatus.ON);
+    public static void addUserLightControlSelections(House house,
+            ControlLightingHandler handler, LightStatus action) {
+        Map<String, HouseSection> sections = house.getSections();
+        for (String key : sections.keySet()) {
+            handler.turnOnOffLighting(sections.get(key), action);
         }
-
     }
 
-    public static void addRandomUserLightControlSelections(
-            ControlLightingHandler handler, int needToSelect) {
-        List<HouseSection> sections = getHouseSections();
-        int noOfAvailableSections = sections.size();
+    public static void addRandomUserLightControlSelections(House house,
+            ControlLightingHandler handler, LightStatus action, int needToSelect) {
+        HouseSection[] sections =
+                house.getSections().values().toArray(new HouseSection[0]);
+        int noOfAvailableSections = sections.length;
 
         // if user want more than the available sections then select them all
         if (needToSelect >= noOfAvailableSections) {
-            addUserLightControlSelections(handler);
+            addUserLightControlSelections(house, handler, action);
         } else {
             // randomly select HouseSections equal to needToSelect parameter
             Random rnd = new Random();
             for (int i = 0; i < needToSelect; i++) {
                 int index = rnd.nextInt(noOfAvailableSections);
+                while (!handler.turnOnOffLighting(sections[index], action)) {
+                    index = rnd.nextInt(noOfAvailableSections);
+                }
             }
         }
-        for (HouseSection hs : sections) {
-            handler.turnOnOffLighting(hs, LightStatus.ON);
-        }
-
     }
 }

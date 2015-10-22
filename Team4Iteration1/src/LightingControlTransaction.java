@@ -57,4 +57,15 @@ public class LightingControlTransaction {
     public void setType(LightingControlTransactionType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(String
+                .format("Lighting Control Transaction with user selections as:%n"));
+        for (LightingControlAction lca : lcas) {
+            builder.append(String.format("   %s%n", lca.toString()));
+        }
+        return builder.toString();
+    }
 }
