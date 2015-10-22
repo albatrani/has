@@ -5,16 +5,21 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ControlLightingHandlerTests {
 
     private ControlLightingHandler handler;
-    private House house;
+    private static House house;
+
+    @BeforeClass
+    public static void setUpBeforeClass() {
+        house = TestingUtilities.getSampleHouse();
+    }
 
     @Before
     public void setUp() throws Exception {
-        house = TestingUtilities.getSampleHouse();
         handler = house.makeNewControlLighting();
     }
 
@@ -66,7 +71,7 @@ public class ControlLightingHandlerTests {
         // Act
         HouseSection masterBedroom = house.getHouseSection("Master Bedroom");
         boolean first = handler.turnOnOffLighting(masterBedroom, LightStatus.ON);
-        boolean second = handler.turnOnOffLighting(masterBedroom, LightStatus.ON);
+        boolean second = handler.turnOnOffLighting(masterBedroom, LightStatus.OFF);
 
         // Assert
         assertTrue(first);

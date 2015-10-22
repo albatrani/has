@@ -1,7 +1,8 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import org.junit.After;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,10 +18,6 @@ public class LightingControlTransactionTests {
         hs = new HouseSection("Kitchen", true);
         action = LightStatus.ON;
         lct = new LightingControlTransaction();
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test
@@ -52,13 +49,12 @@ public class LightingControlTransactionTests {
     @Test
     public void testComplete() {
         // Act
-        for (int i = 0; i < TestingUtilities.SECTIONS_NAMES.length; i++) {
-            HouseSection hs =
-                    new HouseSection(TestingUtilities.SECTIONS_NAMES[i],
-                            TestingUtilities.SECTIONS_IN_HOUSE_FLAGS[i]);
+        List<HouseSection> sections = TestingUtilities.getHouseSections();
+        for (HouseSection hs : sections) {
             LightStatus action = LightStatus.ON;
             lct.addLightControlAction(hs, action);
         }
+
         TransactionStatus actual = lct.complete();
         TransactionStatus expected = TransactionStatus.SUCCESSFUL;
 
