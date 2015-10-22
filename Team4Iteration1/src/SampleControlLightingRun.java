@@ -1,3 +1,6 @@
+/*
+ * Test driver program for control lighting feature
+ */
 public class SampleControlLightingRun {
 
     public static void main(String[] args) {
