@@ -1,4 +1,4 @@
-public class SecurityControlCommandsFactory {
+public class SecurityControlCommandFactory {
 
     public static SensorControlCommand createSensorControlCommand(Sensor sensor, SensorStatus action) {
         switch (action) {

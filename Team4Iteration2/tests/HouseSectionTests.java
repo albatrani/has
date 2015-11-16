@@ -29,9 +29,9 @@ public class HouseSectionTests {
         HouseSection backYard = new HouseSection(BACK_YARD_NAME, false);
 
         // Act - switch on the lights and then switch them off
-        masterBedRoom.setLightingStatus(LightStatus.ON);
-        backYard.setLightingStatus(LightStatus.ON);
-        masterBedRoom.setLightingStatus(LightStatus.OFF);
+        masterBedRoom.switchOnLights();
+        backYard.switchOnLights();
+        masterBedRoom.switchOffLights();
 
         // Assert
         assertEquals("HouseSection setLightingStatus function failed", LightStatus.OFF,

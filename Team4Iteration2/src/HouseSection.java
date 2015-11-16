@@ -15,23 +15,6 @@ public class HouseSection {
     }
 
     /*
-     * Updates lighting status (On/Off) for this house section. Communication is carried
-     * via the light adapter object
-     */
-    public void setLightingStatus(LightStatus action) {
-        switch (action) {
-        case ON:
-            lightAdapter.on();
-            break;
-        case OFF:
-            lightAdapter.off();
-            break;
-        }
-        System.out.printf("%s light is switched %s%n", name,
-                lightAdapter.getLightStatus());
-    }
-
-    /*
      * Gets current lighting status for the house section
      */
     public LightStatus getLightingStatus() {
@@ -54,5 +37,28 @@ public class HouseSection {
     public String toString() {
         return String.format("Section: %s, Current Light Status: %s", name,
                 getLightingStatus());
+    }
+
+    /*
+     * switches OFF the lights for this house section. Communication is carried via the
+     * light adapter object
+     */
+    public void switchOffLights() {
+        lightAdapter.off();
+        logLightStatusChange();
+    }
+
+    private void logLightStatusChange() {
+        System.out.printf("%s light is switched %s%n", name,
+                lightAdapter.getLightStatus());
+    }
+
+    /*
+     * switches ON the lights for this house section. Communication is carried via the
+     * light adapter object
+     */
+    public void switchOnLights() {
+        lightAdapter.on();
+        logLightStatusChange();
     }
 }

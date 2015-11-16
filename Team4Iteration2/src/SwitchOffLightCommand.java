@@ -6,7 +6,7 @@ public class SwitchOffLightCommand extends LightingControlCommand {
 
     @Override
     public boolean execute() {
-        section.setLightingStatus(LightStatus.OFF);
+        section.switchOffLights();
         return section.getLightingStatus() == LightStatus.OFF;
     }
 
