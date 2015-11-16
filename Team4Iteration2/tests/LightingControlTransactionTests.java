@@ -55,7 +55,7 @@ public class LightingControlTransactionTests {
             lct.addLightControlAction(hs, action);
         }
 
-        TransactionStatus actual = lct.complete();
+        TransactionStatus actual = lct.process();
         TransactionStatus expected = TransactionStatus.SUCCESSFUL;
 
         // Assert

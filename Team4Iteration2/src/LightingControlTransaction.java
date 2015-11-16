@@ -9,7 +9,7 @@ import java.util.List;
 public class LightingControlTransaction implements ITransaction {
 
     private LightingControlTransactionType type;
-    private List<LightingControlAction> lcas;
+    private List<LightingControlCommand> lcas;
 
     public LightingControlTransaction() {
         type = LightingControlTransactionType.CUSTOM_LIGHTS_SELECTION;
@@ -21,7 +21,8 @@ public class LightingControlTransaction implements ITransaction {
      * selected house sections
      */
     public void addLightControlAction(HouseSection hs, LightStatus action) {
-        LightingControlAction lca = new LightingControlAction(hs, action);
+
+        LightingControlCommand lca = LightingControlCommandFactory.create(hs, action);
 
         // check that the house section to be added is unique (no duplicates allowed)
         if (lcas.contains(lca)) {
@@ -39,15 +40,15 @@ public class LightingControlTransaction implements ITransaction {
      */
     @Override
     public TransactionStatus process() {
-        for (LightingControlAction lca : lcas) {
-            if (!lca.process()) {
+        for (LightingControlCommand lca : lcas) {
+            if (!lca.execute()) {
                 return TransactionStatus.FAILED;
             }
         }
         return TransactionStatus.SUCCESSFUL;
     }
 
-    public List<LightingControlAction> getLcas() {
+    public List<LightingControlCommand> getLcas() {
         return this.lcas;
     }
 
@@ -64,7 +65,7 @@ public class LightingControlTransaction implements ITransaction {
         StringBuilder builder = new StringBuilder();
         builder.append(String
                 .format("Lighting Control Transaction with user selections as:%n"));
-        for (LightingControlAction lca : lcas) {
+        for (LightingControlCommand lca : lcas) {
             builder.append(String.format("   %s%n", lca.toString()));
         }
         return builder.toString();
