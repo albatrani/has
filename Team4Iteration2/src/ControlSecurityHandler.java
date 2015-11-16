@@ -16,13 +16,23 @@ public class ControlSecurityHandler {
     }
 
   public Sensor selectSensor(SensorType type, String name){
-	  
-	return null;
+	  if (type == SensorType.WINDOW)
+	  {
+		  Window window = house.getWindow(name);
+		  return window.getWindowSensor();
+		  
+	  }
+	  else
+	  {
+		  Door door = house.getDoor(name);
+		  return door.getDoorSensor();
+		  
+	  }
 	  
   }
 
     /*
-     * Passes the user’s security control action to the transaction object
+     * Passes the userï¿½s security control action to the transaction object
      */
     public boolean enableDisableSensor(Sensor sensor, SensorStatus action) {
         // 1st validate all user inputs
