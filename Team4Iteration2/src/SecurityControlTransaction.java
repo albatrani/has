@@ -1,28 +1,75 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class SecurityControlTransaction implements ITransaction {
 
-	@Override
-	public TransactionStatus process() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private SecurityControlTransactionType type;
+    private List<SensorControlCommand> scas;
+    private List<DoorLockControlCommand> dlcas;
 
-	public void addSecurityControlAction(Sensor sensor, SensorStatus action) {
-		SecurityControlSensorCommand sca = SecurityControlSensorCommandFactory .create(sensor, action);
+    public SecurityControlTransaction() {
+        type = SecurityControlTransactionType.CUSTOM_SENSOR_LOCK_SELECTION;
+        scas = new ArrayList<>();
+        dlcas = new ArrayList<>();
+    }
 
-	        // check that the house section to be added is unique (no duplicates allowed)
-	        if (lcas.contains(lca)) {
-	            throw new IllegalArgumentException(
-	                    "The HouseSection supplied is already selected!");
-	        } else {
-	            // otherwise it's safe to added it
-	            lcas.add(lca);
-	        }
-	}
+    public void addSensorControlAction(Sensor sensor, SensorStatus action) {
+        SensorControlCommand sca =
+                SecurityControlCommandsFactory.createSensorControlCommand(sensor, action);
 
-	public TransactionStatus complete() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        // check that the house section to be added is unique (no duplicates allowed)
+        if (scas.contains(sca)) {
+            throw new IllegalArgumentException(
+                    "The Window/Door Sensor supplied is already selected!");
+        } else {
+            // otherwise it's safe to added it
+            scas.add(sca);
+        }
+    }
 
+    public void addDoorLockControlAction(DoorLock doorLock, DoorLockStatus action) {
+        DoorLockControlCommand dlca =
+                SecurityControlCommandsFactory.createDoorLockControlCommand(doorLock,
+                        action);
+
+        // check that the house section to be added is unique (no duplicates allowed)
+        if (dlcas.contains(dlca)) {
+            throw new IllegalArgumentException(
+                    "The Door Lock supplied is already selected!");
+        } else {
+            // otherwise it's safe to added it
+            dlcas.add(dlca);
+        }
+    }
+
+    @Override
+    public TransactionStatus process() {
+        for (SensorControlCommand sca : scas) {
+            if (!sca.execute()) {
+                return TransactionStatus.FAILED;
+            }
+        }
+        for (DoorLockControlCommand dlca : dlcas) {
+            if (!dlca.execute()) {
+                return TransactionStatus.FAILED;
+            }
+        }
+        return TransactionStatus.SUCCESSFUL;
+    }
+
+    public SecurityControlTransactionType getType() {
+        return this.type;
+    }
+
+    public void setType(SecurityControlTransactionType type) {
+        this.type = type;
+    }
+
+    public List<SensorControlCommand> getScas() {
+        return this.scas;
+    }
+
+    public List<DoorLockControlCommand> getDlcas() {
+        return this.dlcas;
+    }
 }

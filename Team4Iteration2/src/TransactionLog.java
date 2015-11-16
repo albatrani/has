@@ -14,9 +14,10 @@ public class TransactionLog {
     /*
      * Creates transaction log object with reference the control lighting transaction
      */
-    public TransactionLog(ITransaction lct,TransactionType type, TransactionStatus status) {
-        transaction = lct;
-        dateTime = new Date();
+    public TransactionLog(ITransaction transaction, TransactionType type,
+            TransactionStatus status) {
+        this.transaction = transaction;
+        this.dateTime = new Date();
         this.type = type;
         this.status = status;
     }

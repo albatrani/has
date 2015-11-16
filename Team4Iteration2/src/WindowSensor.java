@@ -1,15 +1,15 @@
-
 public class WindowSensor extends Sensor {
-public WindowSensor(String name) {
-	super(name);
-	type = SensorType.WINDOW;
-	
-}
-	public void enable() {
-		setStatus(SensorStatus.ENABLED);
-	}
 
-	public void disable() {
-		setStatus(SensorStatus.DISABLED);
-	}
+    public WindowSensor(String name) {
+        super(name);
+        type = SensorType.WINDOW;
+    }
+
+    public void enable() {
+        status = SensorStatus.ENABLED;
+    }
+
+    public void disable() {
+        status = SensorStatus.DISABLED;
+    }
 }

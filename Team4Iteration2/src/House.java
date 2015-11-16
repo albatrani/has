@@ -21,7 +21,8 @@ public class House {
         this.address = address;
         trasactions = new ArrayList<>();
         sections = new HashMap<>();
-
+        windows = new HashMap<>();
+        doors = new HashMap<>();
     }
 
     /*
@@ -36,13 +37,6 @@ public class House {
      */
     public ControlLightingHandler makeNewControlLighting() {
         return new ControlLightingHandler(this);
-    }
-
-    /*
-     * Adds a log for the completed lighting control transaction
-     */
-    public void logTransaction(LightingControlTransaction lct, TransactionStatus status) {
-        trasactions.add(new TransactionLog(lct,TransactionType.CONTROL_LIGHTING, status));
     }
 
     /*
@@ -83,52 +77,52 @@ public class House {
         }
         return builder.toString();
     }
-    
-    // iteration 2
-    
+
     /*
      * makes the control security handler object and pass its reference back to UI
      */
-    public ControlLightingHandler makeNewControlSecurity() {
-        
-    	return new ControlLightingHandler(this);
+    public ControlSecurityHandler makeNewControlSecurity() {
+        return new ControlSecurityHandler(this);
     }
-    
+
     public Door getDoor(String name) {
-		
-    	return doors.get(name);
-	}
-    
+        return doors.get(name);
+    }
+
     public Window getWindow(String name) {
-		
-    	return windows.get(name);
-	}
-    
-    public boolean addWindow(Window w){
-    	
-    	if (windows.containsKey(w.getName())) {
+        return windows.get(name);
+    }
+
+    public boolean addWindow(Window window) {
+        if (windows.containsKey(window.getName())) {
             return false;
         }
-    	windows.put(w.getName(), w);
+        windows.put(window.getName(), window);
         return true;
-    	
     }
-    
-    public boolean addDoor(Door d){
-    	
-    	if (doors.containsKey(d.getName())) {
+
+    public boolean addDoor(Door door) {
+
+        if (doors.containsKey(door.getName())) {
             return false;
         }
-    	doors.put(d.getName(), d);
+        doors.put(door.getName(), door);
         return true;
-    	
     }
-    
+
+    public Map<String, Window> getWindows() {
+        return this.windows;
+    }
+
+    public Map<String, Door> getDoors() {
+        return this.doors;
+    }
+
     /*
-     * Adds a log for the completed security control transaction
+     * Adds a log for the completed control transaction
      */
-    public void logTransaction(SecurityControlTransaction sct, TransactionStatus status) {
-        trasactions.add(new TransactionLog(sct, TransactionType.CONTROL_SECURITY, status));
+    public void logTransaction(ITransaction transaction, TransactionType type,
+            TransactionStatus status) {
+        trasactions.add(new TransactionLog(transaction, type, status));
     }
-    
 }

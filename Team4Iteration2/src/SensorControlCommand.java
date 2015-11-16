@@ -1,9 +1,9 @@
 
-public abstract class SecurityControlSensorCommand implements ICommand {
+public abstract class SensorControlCommand implements ICommand {
 
 	protected Sensor sensor;
 
-    protected SecurityControlSensorCommand(Sensor sensor) {
+    protected SensorControlCommand(Sensor sensor) {
         this.sensor = sensor;
     }
 
@@ -12,11 +12,11 @@ public abstract class SecurityControlSensorCommand implements ICommand {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof SecurityControlSensorCommand)) {
+        if (!(obj instanceof SensorControlCommand)) {
             return false;
         }
 
-        SecurityControlSensorCommand other = (SecurityControlSensorCommand) obj;
+        SensorControlCommand other = (SensorControlCommand) obj;
         return this.sensor.getName().equals(other.sensor.getName());
     }
 

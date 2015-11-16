@@ -28,7 +28,7 @@ public class SampleControlLightingRun {
                 .println("--------------------------------------------------------------");
 
         TestingUtilities.addUserLightControlSelections(house, handler, LightStatus.ON);
-        System.out.printf("%s%nCreating %s%n", house.toString(), handler.getLct()
+        System.out.printf("%s%nCreating %s%n", house.toString(), handler.getLightingControlTransaction()
                 .toString());
 
         // execute the transaction
@@ -56,7 +56,7 @@ public class SampleControlLightingRun {
 
         TestingUtilities.addRandomUserLightControlSelections(house, handler,
                 LightStatus.OFF, count);
-        System.out.printf("%s%nCreating %s%n", house.toString(), handler.getLct()
+        System.out.printf("%s%nCreating %s%n", house.toString(), handler.getLightingControlTransaction()
                 .toString());
 
         // execute the transaction

@@ -26,7 +26,7 @@ public class ControlLightingHandlerTests {
     @Test
     public void testControlLightingHandler() {
         assertNotNull(handler.getHouse());
-        assertNotNull(handler.getLct());
+        assertNotNull(handler.getLightingControlTransaction());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class ControlLightingHandlerTests {
         handler.turnOnOffLighting(masterBedroom, LightStatus.ON);
 
         // Assert
-        assertEquals(1, handler.getLct().getLcas().size());
+        assertEquals(1, handler.getLightingControlTransaction().getLcas().size());
     }
 
     @Test

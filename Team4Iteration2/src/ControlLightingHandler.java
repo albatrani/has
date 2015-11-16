@@ -53,7 +53,7 @@ public class ControlLightingHandler {
      */
     public TransactionStatus endControlLighting() {
         TransactionStatus status = lct.process();
-        house.logTransaction(lct, status);
+        house.logTransaction(lct, TransactionType.CONTROL_LIGHTING, status);
         return status;
     }
 
@@ -61,7 +61,7 @@ public class ControlLightingHandler {
         return this.house;
     }
 
-    public LightingControlTransaction getLct() {
+    public LightingControlTransaction getLightingControlTransaction() {
         return this.lct;
     }
 }
