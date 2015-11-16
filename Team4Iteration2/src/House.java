@@ -42,7 +42,7 @@ public class House {
      * Adds a log for the completed lighting control transaction
      */
     public void logTransaction(LightingControlTransaction lct, TransactionStatus status) {
-        trasactions.add(new TransactionLog(lct, status));
+        trasactions.add(new TransactionLog(lct,TransactionType.CONTROL_LIGHTING, status));
     }
 
     /*
