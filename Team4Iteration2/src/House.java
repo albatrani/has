@@ -127,8 +127,8 @@ public class House {
     /*
      * Adds a log for the completed security control transaction
      */
-    //public void logTransaction(SecurityControlTransaction sct, TransactionStatus status) {
-        //trasactions.add(new TransactionLog(sct, status));
-    //}
+    public void logTransaction(SecurityControlTransaction sct, TransactionStatus status) {
+        trasactions.add(new TransactionLog(sct, TransactionType.CONTROL_SECURITY, status));
+    }
     
 }
