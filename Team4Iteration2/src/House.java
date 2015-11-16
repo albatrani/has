@@ -13,6 +13,8 @@ public class House {
     private Resident resident;
     private List<TransactionLog> trasactions;
     private Map<String, HouseSection> sections;
+    private Map<String, Window> windows;
+    private Map<String, Door> doors;
 
     public House(Resident resident, String address) {
         this.resident = resident;
@@ -81,4 +83,52 @@ public class House {
         }
         return builder.toString();
     }
+    
+    // iteration 2
+    
+    /*
+     * makes the control security handler object and pass its reference back to UI
+     */
+    public ControlLightingHandler makeNewControlSecurity() {
+        
+    	return new ControlLightingHandler(this);
+    }
+    
+    public Door getDoor(String name) {
+		
+    	return doors.get(name);
+	}
+    
+    public Window getWindow(String name) {
+		
+    	return windows.get(name);
+	}
+    
+    public boolean addWindow(Window w){
+    	
+    	if (windows.containsKey(w.getName())) {
+            return false;
+        }
+    	windows.put(w.getName(), w);
+        return true;
+    	
+    }
+    
+    public boolean addDoor(Door d){
+    	
+    	if (doors.containsKey(d.getName())) {
+            return false;
+        }
+    	doors.put(d.getName(), d);
+        return true;
+    	
+    }
+    
+    /*
+     * Adds a log for the completed security control transaction
+     */
+    //public void logTransaction(SecurityControlTransaction sct, TransactionStatus status) {
+        //trasactions.add(new TransactionLog(sct, status));
+    //}
+    
 }
