@@ -9,15 +9,15 @@ public class TransactionLog {
     private TransactionType type;
     private Date dateTime;
     private TransactionStatus status;
-    private LightingControlTransaction transaction;
+    private ITransaction transaction;
 
     /*
      * Creates transaction log object with reference the control lighting transaction
      */
-    public TransactionLog(LightingControlTransaction lct, TransactionStatus status) {
+    public TransactionLog(ITransaction lct,TransactionType type, TransactionStatus status) {
         transaction = lct;
         dateTime = new Date();
-        type = TransactionType.CONTROL_LIGHTING;
+        this.type = type;
         this.status = status;
     }
 
@@ -33,7 +33,7 @@ public class TransactionLog {
         return this.status;
     }
 
-    public LightingControlTransaction getTransaction() {
+    public ITransaction getTransaction() {
         return this.transaction;
     }
 }
