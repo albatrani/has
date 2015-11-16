@@ -52,7 +52,7 @@ public class ControlLightingHandler {
      * transaction.
      */
     public TransactionStatus endControlLighting() {
-        TransactionStatus status = lct.complete();
+        TransactionStatus status = lct.process();
         house.logTransaction(lct, status);
         return status;
     }

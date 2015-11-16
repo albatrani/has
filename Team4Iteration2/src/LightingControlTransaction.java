@@ -6,7 +6,7 @@ import java.util.List;
  * The class captures the list of HouseSections and their desired light action to be 
  * performed (modeled as LightingControlAction object). 
  */
-public class LightingControlTransaction {
+public class LightingControlTransaction implements ITransaction {
 
     private LightingControlTransactionType type;
     private List<LightingControlAction> lcas;
@@ -37,7 +37,8 @@ public class LightingControlTransaction {
      * Executes the lighting control transaction by processing every light control action
      * object in the list. Returns if the transaction was successful or failed.
      */
-    public TransactionStatus complete() {
+    @Override
+    public TransactionStatus process() {
         for (LightingControlAction lca : lcas) {
             if (!lca.process()) {
                 return TransactionStatus.FAILED;
