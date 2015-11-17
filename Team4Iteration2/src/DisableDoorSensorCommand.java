@@ -1,6 +1,6 @@
-public class DisableSensorCommand extends SensorControlCommand {
+public class DisableDoorSensorCommand extends SensorControlCommand {
 
-    protected DisableSensorCommand(Sensor sensor) {
+    protected DisableDoorSensorCommand(Sensor sensor) {
         super(sensor);
     }
 
