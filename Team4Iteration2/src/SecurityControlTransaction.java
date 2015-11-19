@@ -72,4 +72,19 @@ public class SecurityControlTransaction implements ITransaction {
     public List<DoorLockControlCommand> getDlcas() {
         return this.dlcas;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format(
+                "Security Control Transaction (type: %s) with user selections as:%n",
+                type));
+        for (SensorControlCommand sca : scas) {
+            builder.append(String.format("   %s%n", sca.toString()));
+        }
+        for (DoorLockControlCommand dlca : dlcas) {
+            builder.append(String.format("   %s%n", dlca.toString()));
+        }
+        return builder.toString();
+    }
 }

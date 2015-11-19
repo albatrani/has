@@ -28,14 +28,18 @@ public class SampleControlLightingRun {
                 .println("--------------------------------------------------------------");
 
         TestingUtilities.addUserLightControlSelections(house, handler, LightStatus.ON);
-        System.out.printf("%s%nCreating %s%n", house.toString(), handler.getLightingControlTransaction()
-                .toString());
+        handler.getLightingControlTransaction().setType(
+                LightingControlTransactionType.SWITCH_ALL_LIGHTS_ON);
+        System.out.printf("%s%nCreating %s%n", house.getHouseLightingStatusDescription(),
+                handler.getLightingControlTransaction().toString());
 
         // execute the transaction
-        System.out.printf("Executing the Lighting Control Transaction now...%n");
+        System.out.printf(
+                "Executing the Lighting Control Transaction (type: %s) now...%n", handler
+                        .getLightingControlTransaction().getType());
         handler.endControlLighting();
-        System.out.printf("%nHouse details after the transaction...%n%s",
-                house.toString());
+        System.out.printf("%nHouse lighting details after the transaction...%n%s",
+                house.getHouseLightingStatusDescription());
         System.out
                 .println("--------------------------------------------------------------");
         System.out.println("                   End of Test 1");
@@ -56,14 +60,16 @@ public class SampleControlLightingRun {
 
         TestingUtilities.addRandomUserLightControlSelections(house, handler,
                 LightStatus.OFF, count);
-        System.out.printf("%s%nCreating %s%n", house.toString(), handler.getLightingControlTransaction()
-                .toString());
+        System.out.printf("%s%nCreating %s%n", house.getHouseLightingStatusDescription(),
+                handler.getLightingControlTransaction().toString());
 
         // execute the transaction
-        System.out.printf("Executing the Lighting Control Transaction now...%n");
+        System.out.printf(
+                "Executing the Lighting Control Transaction (type: %s) now...%n", handler
+                        .getLightingControlTransaction().getType());
         handler.endControlLighting();
-        System.out.printf("%nHouse details after the transaction...%n%s",
-                house.toString());
+        System.out.printf("%nHouse lighting details after the transaction...%n%s",
+                house.getHouseLightingStatusDescription());
         System.out
                 .println("--------------------------------------------------------------");
         System.out.println("                   End of Test 2");

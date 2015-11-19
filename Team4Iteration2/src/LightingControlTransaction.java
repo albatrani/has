@@ -63,8 +63,9 @@ public class LightingControlTransaction implements ITransaction {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(String
-                .format("Lighting Control Transaction with user selections as:%n"));
+        builder.append(String.format(
+                "Lighting Control Transaction (type: %s) with user selections as:%n",
+                type));
         for (LightingControlCommand lca : lcas) {
             builder.append(String.format("   %s%n", lca.toString()));
         }

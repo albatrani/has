@@ -14,24 +14,77 @@ public class TestingUtilities {
             false, true, true, true, true, true, true, true, true, true, true,
     };
 
+    private final static String[] WINDOW_SENSORS_NAMES = {
+            "Living Room Window", "Master Bedroom Window", "Kids Bedroom Window",
+            "Guest Bedroom Window"
+    };
+
+    private final static String[] EXTERNAL_DOOR_NAMES = {
+            "Main Front Door", "House Back Door"
+    };
+
     public static House getSampleHouse() {
         House house =
                 new House(new Resident("Team 4", "password"),
                         "115 Turpial Way, Melbourne, FL 32901");
+
         List<HouseSection> sections = getHouseSections();
-        for (HouseSection hs : sections) {
-            house.addHouseSection(hs);
+        for (HouseSection houseSection : sections) {
+            house.addHouseSection(houseSection);
         }
+
+        List<WindowSensor> windowSensors = getWindowSensors();
+        for (WindowSensor windowSensor : windowSensors) {
+            house.addWindowSensor(windowSensor);
+        }
+
+        List<DoorSensor> doorSensors = getDoorSensors();
+        for (DoorSensor doorSensor : doorSensors) {
+            house.addDoorSensor(doorSensor);
+        }
+
+        List<DoorLock> doorLocks = getDoorLocks();
+        for (DoorLock doorLock : doorLocks) {
+            house.addDoorLock(doorLock);
+        }
+
         return house;
     }
 
     public static List<HouseSection> getHouseSections() {
         List<HouseSection> list = new ArrayList<>();
-        for (int i = 0; i < TestingUtilities.SECTIONS_NAMES.length; i++) {
+        for (int i = 0; i < SECTIONS_NAMES.length; i++) {
             HouseSection hs =
-                    new HouseSection(TestingUtilities.SECTIONS_NAMES[i],
-                            TestingUtilities.SECTIONS_IN_HOUSE_FLAGS[i]);
+                    new HouseSection(SECTIONS_NAMES[i], SECTIONS_IN_HOUSE_FLAGS[i]);
             list.add(hs);
+        }
+        return list;
+    }
+
+    public static List<WindowSensor> getWindowSensors() {
+        List<WindowSensor> list = new ArrayList<>();
+        for (int i = 0; i < WINDOW_SENSORS_NAMES.length; i++) {
+            WindowSensor sensor =
+                    new WindowSensor(TestingUtilities.WINDOW_SENSORS_NAMES[i]);
+            list.add(sensor);
+        }
+        return list;
+    }
+
+    public static List<DoorSensor> getDoorSensors() {
+        List<DoorSensor> list = new ArrayList<>();
+        for (int i = 0; i < EXTERNAL_DOOR_NAMES.length; i++) {
+            DoorSensor sensor = new DoorSensor(EXTERNAL_DOOR_NAMES[i]);
+            list.add(sensor);
+        }
+        return list;
+    }
+
+    public static List<DoorLock> getDoorLocks() {
+        List<DoorLock> list = new ArrayList<>();
+        for (int i = 0; i < EXTERNAL_DOOR_NAMES.length; i++) {
+            DoorLock doorLock = new DoorLock(EXTERNAL_DOOR_NAMES[i]);
+            list.add(doorLock);
         }
         return list;
     }

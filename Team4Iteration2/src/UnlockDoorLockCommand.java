@@ -10,4 +10,9 @@ public class UnlockDoorLockCommand extends DoorLockControlCommand {
         return doorLock.getStatus() == DoorLockStatus.UNLOCKED;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s, Action required: %s", doorLock.toString(),
+                DoorLockStatus.UNLOCKED.toString());
+    }
 }

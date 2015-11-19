@@ -10,4 +10,9 @@ public class DisableWindowSensorCommand extends SensorControlCommand {
         return sensor.getStatus() == SensorStatus.DISABLED;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s, Action required: %s", sensor.toString(),
+                SensorStatus.DISABLED.toString());
+    }
 }

@@ -1,7 +1,6 @@
-
 public abstract class SensorControlCommand implements ICommand {
 
-	protected Sensor sensor;
+    protected Sensor sensor;
 
     protected SensorControlCommand(Sensor sensor) {
         this.sensor = sensor;

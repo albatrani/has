@@ -13,16 +13,18 @@ public class House {
     private Resident resident;
     private List<TransactionLog> trasactions;
     private Map<String, HouseSection> sections;
-    private Map<String, Window> windows;
-    private Map<String, Door> doors;
+    private Map<String, WindowSensor> windowSensors;
+    private Map<String, DoorSensor> doorSensors;
+    private Map<String, DoorLock> doorLocks;
 
     public House(Resident resident, String address) {
         this.resident = resident;
         this.address = address;
         trasactions = new ArrayList<>();
         sections = new HashMap<>();
-        windows = new HashMap<>();
-        doors = new HashMap<>();
+        windowSensors = new HashMap<>();
+        doorSensors = new HashMap<>();
+        doorLocks = new HashMap<>();
     }
 
     /*
@@ -66,14 +68,30 @@ public class House {
         return sections;
     }
 
-    @Override
-    public String toString() {
+    public String getHouseLightingStatusDescription() {
         StringBuilder builder = new StringBuilder();
         builder.append(String.format(
-                "\"%s\" house located on \"%s\" has the following sections:%n",
+                "\"%s\" house located on \"%s\" has the following lighting status:%n",
                 resident.getName(), address));
-        for (HouseSection hs : sections.values()) {
-            builder.append(String.format("   %s%n", hs.toString()));
+        for (HouseSection houseSection : sections.values()) {
+            builder.append(String.format("   %s%n", houseSection.toString()));
+        }
+        return builder.toString();
+    }
+
+    public String getHouseSecurityStatusDescription() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format(
+                "\"%s\" house located on \"%s\" has the following security status:%n",
+                resident.getName(), address));
+        for (WindowSensor windowSensor : windowSensors.values()) {
+            builder.append(String.format("   %s%n", windowSensor.toString()));
+        }
+        for (DoorSensor doorSensor : doorSensors.values()) {
+            builder.append(String.format("   %s%n", doorSensor.toString()));
+        }
+        for (DoorLock doorLock : doorLocks.values()) {
+            builder.append(String.format("   %s%n", doorLock.toString()));
         }
         return builder.toString();
     }
@@ -85,37 +103,52 @@ public class House {
         return new ControlSecurityHandler(this);
     }
 
-    public Door getDoor(String name) {
-        return doors.get(name);
+    public DoorLock getDoorLock(String name) {
+        return doorLocks.get(name);
     }
 
-    public Window getWindow(String name) {
-        return windows.get(name);
+    public DoorSensor getDoorSensor(String name) {
+        return doorSensors.get(name);
     }
 
-    public boolean addWindow(Window window) {
-        if (windows.containsKey(window.getName())) {
+    public WindowSensor getWindowSensor(String name) {
+        return windowSensors.get(name);
+    }
+
+    public boolean addWindowSensor(WindowSensor windowSensor) {
+        if (windowSensors.containsKey(windowSensor.getName())) {
             return false;
         }
-        windows.put(window.getName(), window);
+        windowSensors.put(windowSensor.getName(), windowSensor);
         return true;
     }
 
-    public boolean addDoor(Door door) {
-
-        if (doors.containsKey(door.getName())) {
+    public boolean addDoorSensor(DoorSensor doorSensor) {
+        if (doorSensors.containsKey(doorSensor.getName())) {
             return false;
         }
-        doors.put(door.getName(), door);
+        doorSensors.put(doorSensor.getName(), doorSensor);
         return true;
     }
 
-    public Map<String, Window> getWindows() {
-        return this.windows;
+    public boolean addDoorLock(DoorLock doorLock) {
+        if (doorLocks.containsKey(doorLock.getName())) {
+            return false;
+        }
+        doorLocks.put(doorLock.getName(), doorLock);
+        return true;
     }
 
-    public Map<String, Door> getDoors() {
-        return this.doors;
+    public Map<String, WindowSensor> getWindowSensors() {
+        return this.windowSensors;
+    }
+
+    public Map<String, DoorSensor> getDoorSensors() {
+        return this.doorSensors;
+    }
+
+    public Map<String, DoorLock> getDoorLocks() {
+        return this.doorLocks;
     }
 
     /*

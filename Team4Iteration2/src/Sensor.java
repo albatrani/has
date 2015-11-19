@@ -26,4 +26,8 @@ public abstract class Sensor {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s Sensor: %s, Current Status: %s", type, name, status);
+    }
 }

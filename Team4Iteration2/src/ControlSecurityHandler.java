@@ -1,3 +1,5 @@
+import java.util.Set;
+
 /*
  * The Controller class which will be coordinating the User Interface (UI) actions 
  * with the domain classes to perform control security transactions. 
@@ -18,15 +20,9 @@ public class ControlSecurityHandler {
     public Sensor selectSensor(SensorType type, String name) {
         Sensor sensor = null;
         if (type == SensorType.WINDOW) {
-            Window window = house.getWindow(name);
-            if (window != null) {
-                sensor = window.getWindowSensor();
-            }
+            sensor = house.getWindowSensor(name);
         } else {
-            Door door = house.getDoor(name);
-            if (door != null) {
-                sensor = door.getDoorSensor();
-            }
+            sensor = house.getDoorSensor(name);
         }
         return sensor;
     }
@@ -54,11 +50,7 @@ public class ControlSecurityHandler {
     }
 
     public DoorLock selectDoorLock(String name) {
-        Door door = house.getDoor(name);
-        if (door != null) {
-            return door.getDoorLock();
-        }
-        return null;
+        return house.getDoorLock(name);
     }
 
     /*
@@ -92,4 +84,39 @@ public class ControlSecurityHandler {
     public SecurityControlTransaction getSecurityControlTransaction() {
         return this.sct;
     }
+
+    public void secureForNight() {
+        Set<String> windowSensorNames = house.getWindowSensors().keySet();
+        for (String sensorName : windowSensorNames) {
+            Sensor sensor = selectSensor(SensorType.WINDOW, sensorName);
+            enableDisableSensor(sensor, SensorStatus.ENABLED);
+        }
+
+        Set<String> doorSensorNames = house.getDoorSensors().keySet();
+        for (String sensorName : doorSensorNames) {
+            Sensor sensor = selectSensor(SensorType.DOOR, sensorName);
+            enableDisableSensor(sensor, SensorStatus.ENABLED);
+        }
+        Set<String> doorLockNames = house.getDoorLocks().keySet();
+        for (String doorLockName : doorLockNames) {
+            DoorLock doorLock = selectDoorLock(doorLockName);
+            lockUnlockDoor(doorLock, DoorLockStatus.LOCKED);
+        }
+        sct.setType(SecurityControlTransactionType.SECURE_FOR_NIGHT);
+    }
+
+    public void goodMorning() {
+        Set<String> windowSensorNames = house.getWindowSensors().keySet();
+        for (String sensorName : windowSensorNames) {
+            Sensor sensor = selectSensor(SensorType.WINDOW, sensorName);
+            enableDisableSensor(sensor, SensorStatus.DISABLED);
+        }
+        Set<String> doorSensorNames = house.getDoorSensors().keySet();
+        for (String sensorName : doorSensorNames) {
+            Sensor sensor = selectSensor(SensorType.DOOR, sensorName);
+            enableDisableSensor(sensor, SensorStatus.DISABLED);
+        }
+        sct.setType(SecurityControlTransactionType.GOOD_MORNING);
+    }
+
 }
