@@ -1,3 +1,6 @@
+/*
+ * Base command class to describe door lock actions implemented using the command pattern
+ */
 public abstract class DoorLockControlCommand implements ICommand {
 
     protected DoorLock doorLock;

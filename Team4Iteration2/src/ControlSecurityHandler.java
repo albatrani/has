@@ -17,6 +17,10 @@ public class ControlSecurityHandler {
         sct = new SecurityControlTransaction();
     }
 
+    /*
+     * Gets motion sensor by name (window or door sensor based on the supplied sensor type
+     * argument)
+     */
     public Sensor selectSensor(SensorType type, String name) {
         Sensor sensor = null;
         if (type == SensorType.WINDOW) {
@@ -28,7 +32,8 @@ public class ControlSecurityHandler {
     }
 
     /*
-     * Passes the users security control action to the transaction object
+     * Passes the users security control action for the selected sensor into the
+     * transaction object
      */
     public boolean enableDisableSensor(Sensor sensor, SensorStatus action) {
         // 1st validate all user inputs
@@ -37,10 +42,10 @@ public class ControlSecurityHandler {
         }
         if (action == null) {
             throw new IllegalArgumentException(
-                    "The security action supplied is undefined!");
+                    "The sensor control action supplied is undefined!");
         }
 
-        // try to add the user's selection where duplicate house section is not allowed
+        // try to add the user's selection where duplicate sensor is not allowed
         try {
             sct.addSensorControlAction(sensor, action);
         } catch (Exception e) {
@@ -49,12 +54,15 @@ public class ControlSecurityHandler {
         return true;
     }
 
+    /*
+     * Gets door lock sensor by name
+     */
     public DoorLock selectDoorLock(String name) {
         return house.getDoorLock(name);
     }
 
     /*
-     * Passes the users security control action to the transaction object
+     * Passes the user’s door lock control action to the transaction object
      */
     public boolean lockUnlockDoor(DoorLock doorLock, DoorLockStatus action) {
         // 1st validate all user inputs
@@ -63,7 +71,7 @@ public class ControlSecurityHandler {
         }
         if (action == null) {
             throw new IllegalArgumentException(
-                    "The door lock action supplied is undefined!");
+                    "The door lock control action supplied is undefined!");
         }
 
         // try to add the user's selection where duplicate house section is not allowed
@@ -75,6 +83,10 @@ public class ControlSecurityHandler {
         return true;
     }
 
+    /*
+     * Indicates that user has ended sensors and door lock picking and ready to apply the
+     * transaction
+     */
     public TransactionStatus endControlSecurity() {
         TransactionStatus status = sct.process();
         house.logTransaction(sct, TransactionType.CONTROL_SECURITY, status);
@@ -85,6 +97,9 @@ public class ControlSecurityHandler {
         return this.sct;
     }
 
+    /*
+     * Performs the enabling of all window and door sensors. Also locking external doors
+     */
     public void secureForNight() {
         Set<String> windowSensorNames = house.getWindowSensors().keySet();
         for (String sensorName : windowSensorNames) {
@@ -105,6 +120,9 @@ public class ControlSecurityHandler {
         sct.setType(SecurityControlTransactionType.SECURE_FOR_NIGHT);
     }
 
+    /*
+     * Performs the disabling of all window and door sensors only.
+     */
     public void goodMorning() {
         Set<String> windowSensorNames = house.getWindowSensors().keySet();
         for (String sensorName : windowSensorNames) {
@@ -118,5 +136,4 @@ public class ControlSecurityHandler {
         }
         sct.setType(SecurityControlTransactionType.GOOD_MORNING);
     }
-
 }

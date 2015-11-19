@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 /*
- * House is the main Controller class in the system which maintains the 
- * list of house sections.
+ * House is the main Controller class in the system which tracks the: 
+ *      1. list of house sections.
+ *      2. list of window sensors.
+ *      3. list of door sensors.
+ *      4. list of door locks.
  */
 public class House {
 
@@ -68,6 +71,9 @@ public class House {
         return sections;
     }
 
+    /*
+     * Builds string representation of the current status of the house lighting features.
+     */
     public String getHouseLightingStatusDescription() {
         StringBuilder builder = new StringBuilder();
         builder.append(String.format(
@@ -79,6 +85,10 @@ public class House {
         return builder.toString();
     }
 
+    /*
+     * Builds string representation of the current status of the house security system
+     * features.
+     */
     public String getHouseSecurityStatusDescription() {
         StringBuilder builder = new StringBuilder();
         builder.append(String.format(
@@ -103,18 +113,30 @@ public class House {
         return new ControlSecurityHandler(this);
     }
 
+    /*
+     * gets a door lock by name
+     */
     public DoorLock getDoorLock(String name) {
         return doorLocks.get(name);
     }
 
+    /*
+     * gets a door sensor by name
+     */
     public DoorSensor getDoorSensor(String name) {
         return doorSensors.get(name);
     }
 
+    /*
+     * gets a window sensor by name
+     */
     public WindowSensor getWindowSensor(String name) {
         return windowSensors.get(name);
     }
 
+    /*
+     * Utility method to populate the window sensors list
+     */
     public boolean addWindowSensor(WindowSensor windowSensor) {
         if (windowSensors.containsKey(windowSensor.getName())) {
             return false;
@@ -123,6 +145,9 @@ public class House {
         return true;
     }
 
+    /*
+     * Utility method to populate the door sensors list
+     */
     public boolean addDoorSensor(DoorSensor doorSensor) {
         if (doorSensors.containsKey(doorSensor.getName())) {
             return false;
@@ -131,6 +156,9 @@ public class House {
         return true;
     }
 
+    /*
+     * Utility method to populate the door locks list
+     */
     public boolean addDoorLock(DoorLock doorLock) {
         if (doorLocks.containsKey(doorLock.getName())) {
             return false;
@@ -152,7 +180,8 @@ public class House {
     }
 
     /*
-     * Adds a log for the completed control transaction
+     * Adds a log for the completed control transactions (i.e. lighting, security, ...etc
+     * as they implement the generic ITransaction interface)
      */
     public void logTransaction(ITransaction transaction, TransactionType type,
             TransactionStatus status) {

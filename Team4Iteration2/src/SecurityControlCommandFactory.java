@@ -1,5 +1,12 @@
+/*
+ * Factory methods to create security control commands for controlling window/door 
+ * sensors and door locks 
+ */
 public class SecurityControlCommandFactory {
 
+    /*
+     * creates sensor control commands
+     */
     public static SensorControlCommand createSensorControlCommand(Sensor sensor,
             SensorStatus action) {
 
@@ -13,6 +20,9 @@ public class SecurityControlCommandFactory {
         }
     }
 
+    /*
+     * helper method to create window sensor control commands
+     */
     private static SensorControlCommand createWindowSensorControlCommand(Sensor sensor,
             SensorStatus action) {
         switch (action) {
@@ -25,6 +35,9 @@ public class SecurityControlCommandFactory {
         }
     }
 
+    /*
+     * helper methods to create door sensor control commands
+     */
     private static SensorControlCommand createDoorSensorControlCommand(Sensor sensor,
             SensorStatus action) {
         switch (action) {
@@ -37,6 +50,9 @@ public class SecurityControlCommandFactory {
         }
     }
 
+    /*
+     * creates door lock control commands
+     */
     public static DoorLockControlCommand createDoorLockControlCommand(DoorLock doorLock,
             DoorLockStatus action) {
         switch (action) {
@@ -48,5 +64,4 @@ public class SecurityControlCommandFactory {
             return null;
         }
     }
-
 }

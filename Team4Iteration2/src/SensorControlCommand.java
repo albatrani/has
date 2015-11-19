@@ -1,3 +1,7 @@
+/*
+ * Base command class to describe door and window sensor actions implemented using 
+ * the command pattern
+ */
 public abstract class SensorControlCommand implements ICommand {
 
     protected Sensor sensor;

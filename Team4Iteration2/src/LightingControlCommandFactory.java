@@ -1,3 +1,6 @@
+/*
+ * Factory methods to create light control commands 
+ */
 public class LightingControlCommandFactory {
 
     public static LightingControlCommand create(HouseSection hs, LightStatus action) {

@@ -1,3 +1,6 @@
+/*
+ * Base command class to describe lighting actions implemented using the command pattern
+ */
 public abstract class LightingControlCommand implements ICommand {
 
     protected HouseSection section;

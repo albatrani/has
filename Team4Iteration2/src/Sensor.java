@@ -1,3 +1,6 @@
+/*
+ * Base class to define motion sensor which can be enabled or disabled.
+ */
 public abstract class Sensor {
 
     protected SensorStatus status;
@@ -10,10 +13,19 @@ public abstract class Sensor {
 
     }
 
+    /*
+     * Has to be overridden to perform enabling of the sensor
+     */
     public abstract void enable();
 
+    /*
+     * Has to be overridden to perform disabling of the sensor
+     */
     public abstract void disable();
 
+    /*
+     * Gets current sensor status
+     */
     public SensorStatus getStatus() {
         return status;
     }

@@ -1,9 +1,15 @@
+/*
+ * Command class to disable window sensors implemented using the command pattern
+ */
 public class DisableWindowSensorCommand extends SensorControlCommand {
 
     protected DisableWindowSensorCommand(Sensor sensor) {
         super(sensor);
     }
 
+    /*
+     * Performs the disabling of the window sensor
+     */
     @Override
     public boolean execute() {
         sensor.disable();

@@ -1,15 +1,25 @@
-public class SampleControlSecurityRun {
+/*
+ * Test driver program for control security feature
+ * 
+ * To run: > java Iteration2SampleRun
+ */
+public class Iteration2SampleRun {
 
     public static void main(String[] args) {
         // create a sample house
         House house = TestingUtilities.getSampleHouse();
 
-        // test 1: switch on all lights for every house section
+        /*
+         * test 1: enable all motion sensors (Door & Windows) and lock external doors for
+         * night mode
+         */
         secureForNightScenario(house);
 
         System.out.println();
 
-        // test 2: switch off 6 random lights
+        /*
+         * test 2: disable all motion sensors (Door & Windows) for morning mode
+         */
         goodMorningScenario(house);
 
     }
@@ -24,6 +34,7 @@ public class SampleControlSecurityRun {
         System.out
                 .println("--------------------------------------------------------------");
 
+        // prepare all control actions for night mode
         handler.secureForNight();
         System.out.printf("%s%nCreating %s%n", house.getHouseSecurityStatusDescription(),
                 handler.getSecurityControlTransaction().toString());
@@ -51,6 +62,7 @@ public class SampleControlSecurityRun {
         System.out
                 .println("--------------------------------------------------------------");
 
+        // prepare all control actions for morning mode
         handler.goodMorning();
         System.out.printf("%s%nCreating %s%n", house.getHouseSecurityStatusDescription(),
                 handler.getSecurityControlTransaction().toString());

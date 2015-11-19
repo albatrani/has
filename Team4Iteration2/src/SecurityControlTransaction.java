@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * SecurityControlTransaction represents the whole cycle of control security.
+ * The class captures the list of window/door sensors and their desired sensor control 
+ * action to be performed. Also captures the list of door locks and their desired 
+ * door lock control action to be performed. 
+ */
 public class SecurityControlTransaction implements ITransaction {
 
     private SecurityControlTransactionType type;
@@ -13,6 +19,10 @@ public class SecurityControlTransaction implements ITransaction {
         dlcas = new ArrayList<>();
     }
 
+    /*
+     * Adds the user window/door sensor control action for a specific window/door sensor
+     * and stores it in the list of selected window/door sensors
+     */
     public void addSensorControlAction(Sensor sensor, SensorStatus action) {
         SensorControlCommand sca =
                 SecurityControlCommandFactory.createSensorControlCommand(sensor, action);
@@ -27,6 +37,10 @@ public class SecurityControlTransaction implements ITransaction {
         }
     }
 
+    /*
+     * Adds the user door lock control action for a door lock and stores it in the list of
+     * selected door locks
+     */
     public void addDoorLockControlAction(DoorLock doorLock, DoorLockStatus action) {
         DoorLockControlCommand dlca =
                 SecurityControlCommandFactory.createDoorLockControlCommand(doorLock,
@@ -42,6 +56,10 @@ public class SecurityControlTransaction implements ITransaction {
         }
     }
 
+    /*
+     * Executes the security control transaction by processing every window/door sensor
+     * and door lock control actions
+     */
     @Override
     public TransactionStatus process() {
         for (SensorControlCommand sca : scas) {
@@ -65,11 +83,11 @@ public class SecurityControlTransaction implements ITransaction {
         this.type = type;
     }
 
-    public List<SensorControlCommand> getScas() {
+    public List<SensorControlCommand> getSensorControlCommands() {
         return this.scas;
     }
 
-    public List<DoorLockControlCommand> getDlcas() {
+    public List<DoorLockControlCommand> getDoorLockControlCommands() {
         return this.dlcas;
     }
 

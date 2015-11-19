@@ -2,7 +2,7 @@ import java.util.Date;
 
 /*
  * TransactionLog captures the details of the transaction run in the system. 
- * Currently it is defined to model LightingControlTransaction only. 
+ * The transaction is a specific implementation of the ITransaction interface. 
  */
 public class TransactionLog {
 
@@ -12,7 +12,7 @@ public class TransactionLog {
     private ITransaction transaction;
 
     /*
-     * Creates transaction log object with reference the control lighting transaction
+     * Creates transaction log object with reference to the generic control transaction
      */
     public TransactionLog(ITransaction transaction, TransactionType type,
             TransactionStatus status) {

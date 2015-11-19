@@ -1,3 +1,6 @@
+/*
+ * Models the door lock object 
+ */
 public class DoorLock {
 
     private DoorLockStatus status;
@@ -9,6 +12,9 @@ public class DoorLock {
         logDoorLockStatusChange();
     }
 
+    /*
+     * Locks the door
+     */
     public void lock() {
         status = DoorLockStatus.LOCKED;
         logDoorLockStatusChange();
@@ -18,10 +24,16 @@ public class DoorLock {
         System.out.printf("Door lock of %s was %s%n", name, status);
     }
 
+    /*
+     * Unlocks the door
+     */
     public void unlock() {
         status = DoorLockStatus.UNLOCKED;
     }
 
+    /*
+     * Gets current door lock sensor status
+     */
     public DoorLockStatus getStatus() {
         return this.status;
     }

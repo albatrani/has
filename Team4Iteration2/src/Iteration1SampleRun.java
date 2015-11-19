@@ -1,7 +1,9 @@
 /*
  * Test driver program for control lighting feature
+ * 
+ * To run: > java Iteration1SampleRun
  */
-public class SampleControlLightingRun {
+public class Iteration1SampleRun {
 
     public static void main(String[] args) {
         // create a sample house
@@ -18,7 +20,6 @@ public class SampleControlLightingRun {
     }
 
     private static void switchAllLightsOnScenario(House house) {
-        // get ControlLightingHandler
         ControlLightingHandler handler = house.makeNewControlLighting();
 
         System.out
@@ -48,7 +49,6 @@ public class SampleControlLightingRun {
     }
 
     private static void switchRandowmLightsOffScenario(House house, int count) {
-        // get ControlLightingHandler
         ControlLightingHandler handler = house.makeNewControlLighting();
 
         System.out
