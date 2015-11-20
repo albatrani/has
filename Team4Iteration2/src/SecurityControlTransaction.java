@@ -25,7 +25,7 @@ public class SecurityControlTransaction implements ITransaction {
      */
     public void addSensorControlAction(Sensor sensor, SensorStatus action) {
         SensorControlCommand sca =
-                SecurityControlCommandFactory.createSensorControlCommand(sensor, action);
+                SecurityControlCommandFactory.create(sensor, action);
 
         // check that the house section to be added is unique (no duplicates allowed)
         if (scas.contains(sca)) {
@@ -43,7 +43,7 @@ public class SecurityControlTransaction implements ITransaction {
      */
     public void addDoorLockControlAction(DoorLock doorLock, DoorLockStatus action) {
         DoorLockControlCommand dlca =
-                SecurityControlCommandFactory.createDoorLockControlCommand(doorLock,
+                SecurityControlCommandFactory.create(doorLock,
                         action);
 
         // check that the house section to be added is unique (no duplicates allowed)

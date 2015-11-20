@@ -7,7 +7,7 @@ public class SecurityControlCommandFactory {
     /*
      * creates sensor control commands
      */
-    public static SensorControlCommand createSensorControlCommand(Sensor sensor,
+    public static SensorControlCommand create(Sensor sensor,
             SensorStatus action) {
 
         switch (sensor.getType()) {
@@ -53,7 +53,7 @@ public class SecurityControlCommandFactory {
     /*
      * creates door lock control commands
      */
-    public static DoorLockControlCommand createDoorLockControlCommand(DoorLock doorLock,
+    public static DoorLockControlCommand create(DoorLock doorLock,
             DoorLockStatus action) {
         switch (action) {
         case LOCKED:
