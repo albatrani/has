@@ -9,7 +9,6 @@ public class DoorLock {
     public DoorLock(String name) {
         this.name = name;
         status = DoorLockStatus.UNLOCKED;
-        logDoorLockStatusChange();
     }
 
     /*
@@ -29,6 +28,7 @@ public class DoorLock {
      */
     public void unlock() {
         status = DoorLockStatus.UNLOCKED;
+        logDoorLockStatusChange();
     }
 
     /*
